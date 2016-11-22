@@ -32,4 +32,4 @@ VOLUME ["/opt/zookeeper-${ZOOKEEPER_VERSION}/data"]
 
 COPY conf/  /opt/zookeeper-${ZOOKEEPER_VERSION}/conf/
 
-CMD /usr/sbin/sshd && /opt/zookeeper-${ZOOKEEPER_VERSION}/bin/zkServer.sh start-foreground
+CMD /usr/sbin/sshd && mkdir -p /tmp/zookeeper/ && echo ${ID} > /tmp/zookeeper/myid && /opt/zookeeper-${ZOOKEEPER_VERSION}/bin/zkServer.sh start-foreground
