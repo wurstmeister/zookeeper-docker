@@ -25,10 +25,11 @@ ENV JAVA_HOME /usr/lib/jvm/java-7-openjdk-amd64
 ENV ZK_HOME /opt/zookeeper-${ZOOKEEPER_VERSION}
 RUN sed  -i "s|/tmp/zookeeper|$ZK_HOME/data|g" $ZK_HOME/conf/zoo.cfg; mkdir $ZK_HOME/data
 
-ADD start-zk.sh /usr/bin/start-zk.sh 
 EXPOSE 2181 2888 3888
 
 WORKDIR /opt/zookeeper-${ZOOKEEPER_VERSION}
-VOLUME ["/opt/zookeeper-${ZOOKEEPER_VERSION}/conf", "/opt/zookeeper-${ZOOKEEPER_VERSION}/data"]
+VOLUME ["/opt/zookeeper-${ZOOKEEPER_VERSION}/data"]
 
-CMD /usr/sbin/sshd && bash /usr/bin/start-zk.sh
+COPY conf/  /opt/zookeeper-${ZOOKEEPER_VERSION}/conf/
+
+CMD /usr/sbin/sshd && /opt/zookeeper-${ZOOKEEPER_VERSION}/bin/zkServer.sh start-foreground
