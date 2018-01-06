@@ -1,8 +1,8 @@
-FROM wurstmeister/base
+FROM cmgreen210/base
 
-MAINTAINER Wurstmeister
+MAINTAINER cmgreen210@gmail.com
 
-ENV ZOOKEEPER_VERSION 3.4.9
+ENV ZOOKEEPER_VERSION 3.4.11
 
 #Download Zookeeper
 RUN wget -q http://mirror.vorboss.net/apache/zookeeper/zookeeper-${ZOOKEEPER_VERSION}/zookeeper-${ZOOKEEPER_VERSION}.tar.gz && \
