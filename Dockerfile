@@ -8,9 +8,9 @@ ENV ZOOKEEPER_VERSION=3.5.5
 RUN wget -q https://www.apache.org/dist/zookeeper/zookeeper-${ZOOKEEPER_VERSION}/apache-zookeeper-${ZOOKEEPER_VERSION}-bin.tar.gz
 
 #Install
-RUN tar -xzf apache-zookeeper-${ZOOKEEPER_VERSION}.tar.gz -C /opt
+RUN tar -xzf apache-zookeeper-${ZOOKEEPER_VERSION}-bin.tar.gz -C /opt
 
-RUN mv /opt/apache-zookeeper-${ZOOKEEPER_VERSION} /opt/zookeeper
+RUN mv /opt/apache-zookeeper-${ZOOKEEPER_VERSION}-bin /opt/zookeeper
 
 #Configure
 RUN mv /opt/zookeeper/conf/zoo_sample.cfg /opt/zookeeper/conf/zoo.cfg
