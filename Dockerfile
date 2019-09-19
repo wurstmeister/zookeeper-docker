@@ -23,6 +23,6 @@ ADD start-zk.sh /usr/bin/start-zk.sh
 EXPOSE 2181 2888 3888
 
 WORKDIR /opt/zookeeper
-VOLUME ["/opt/zookeeper/conf", "/opt/zookeeper-${ZOOKEEPER_VERSION}/data"]
+VOLUME ["/opt/zookeeper/conf", "/opt/zookeeper/data"]
 
 CMD /usr/sbin/sshd && bash /usr/bin/start-zk.sh
