@@ -5,18 +5,20 @@ MAINTAINER Wurstmeister
 ENV ZOOKEEPER_VERSION=3.5.5
 
 #Download Zookeeper
-RUN wget -q https://www.apache.org/dist/zookeeper/zookeeper-${ZOOKEEPER_VERSION}/zookeeper-${ZOOKEEPER_VERSION}.tar.gz && \
+RUN wget -q https://www.apache.org/dist/zookeeper/zookeeper-${ZOOKEEPER_VERSION}/apache-zookeeper-${ZOOKEEPER_VERSION}.tar.gz && \
 wget -q https://www.apache.org/dist/zookeeper/KEYS && \
-wget -q https://www.apache.org/dist/zookeeper/zookeeper-${ZOOKEEPER_VERSION}/zookeeper-${ZOOKEEPER_VERSION}.tar.gz.asc && \
-wget -q https://www.apache.org/dist/zookeeper/zookeeper-${ZOOKEEPER_VERSION}/zookeeper-${ZOOKEEPER_VERSION}.tar.gz.md5
+wget -q https://www.apache.org/dist/zookeeper/zookeeper-${ZOOKEEPER_VERSION}/apache-zookeeper-${ZOOKEEPER_VERSION}.tar.gz.asc && \
+wget -q https://www.apache.org/dist/zookeeper/zookeeper-${ZOOKEEPER_VERSION}/apache-zookeeper-${ZOOKEEPER_VERSION}.tar.gz.md5
 
 #Verify download
-RUN md5sum -c zookeeper-${ZOOKEEPER_VERSION}.tar.gz.md5 && \
+RUN md5sum -c apache-zookeeper-${ZOOKEEPER_VERSION}.tar.gz.md5 && \
 gpg --import KEYS && \
-gpg --verify zookeeper-${ZOOKEEPER_VERSION}.tar.gz.asc
+gpg --verify apache-zookeeper-${ZOOKEEPER_VERSION}.tar.gz.asc
 
 #Install
-RUN tar -xzf zookeeper-${ZOOKEEPER_VERSION}.tar.gz -C /opt
+RUN tar -xzf apache-zookeeper-${ZOOKEEPER_VERSION}.tar.gz -C /opt
+
+RUN mv /opt/apache-zookeeper-${ZOOKEEPER_VERSION} /opt/zookeeper-${ZOOKEEPER_VERSION}
 
 #Configure
 RUN mv /opt/zookeeper-${ZOOKEEPER_VERSION}/conf/zoo_sample.cfg /opt/zookeeper-${ZOOKEEPER_VERSION}/conf/zoo.cfg
