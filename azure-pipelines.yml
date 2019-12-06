@@ -11,6 +11,7 @@ variables:
 
 trigger:
 - master
+- develop
 
 pr: none
 
