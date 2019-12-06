@@ -11,6 +11,7 @@ variables:
 
 trigger:
 - master
+- develop
 
 pr: none
 
@@ -36,7 +37,7 @@ jobs:
         latest
 
 - job: 'DockerLinuxDevelop'
-  condition: eq(variables['build.SourceBranchName'], 'master')
+  condition: eq(variables['build.SourceBranchName'], 'develop')
   displayName: 'creates a zookeeper Docker image for Linux for master'
   pool:
     name: 'Hosted Ubuntu 1604'
