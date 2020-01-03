@@ -4,7 +4,7 @@ filebeat.inputs:
 - type: log
   enabled: true
   paths:
-    - /opt/zookeper/logs/*.log
+    - /opt/zookeeper/logs/*.log
   #json.keys_under_root: true
   #json.add_error_key: true
   #include_lines: ['^ERR', '^WARN']
