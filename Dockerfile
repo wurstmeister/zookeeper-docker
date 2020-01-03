@@ -44,7 +44,7 @@ RUN curl -L -o /tmp/consul.zip ${HASHICORP_RELEASES}/consul/${CONSUL_VERSION}/co
  && mkdir -p /etc/consul.d/ \
  && mkdir -p /opt/consul-data/
  
-ADD consul-kafka.json /etc/consul.d/
+ADD consul-zk.json /etc/consul.d/
 
 RUN curl https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-${FILEBEAT_VERSION}-linux-x86_64.tar.gz -o /tmp/filebeat.tar.gz \
   && tar xzf /tmp/filebeat.tar.gz \
