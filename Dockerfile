@@ -13,7 +13,7 @@ ENV ZOOKEEPER_VERSION=$zookeper_version \
     CONSUL_URL=$consul_url
 
 
-RUN mkdir /var/run/sshd
+#RUN mkdir /var/run/sshd
 #RUN echo 'root:germanedge' | chpasswd
 #RUN apt update; apt upgrade; apt install -y wget unzip openjdk-8-jre-headless wget supervisor docker.io openssh-server curl
 RUN apt update; apt upgrade; apt install -y wget unzip openjdk-8-jre-headless wget supervisor curl
