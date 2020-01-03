@@ -59,9 +59,9 @@ ADD filebeat.yml /etc/filebeat
 RUN mkdir -p /opt/prometheus/ \
   && curl https://repo1.maven.org/maven2/io/prometheus/jmx/jmx_prometheus_javaagent/0.12.0/jmx_prometheus_javaagent-0.12.0.jar -o /opt/prometheus/jmx-exporter.jar
 
-ADD prometheus_kafka.yml /opt/prometheus/
+ADD prometheus_zk.yml /opt/prometheus/
 
-ENV SERVER_JVMFLAGS='-javaagent:/opt/prometheus/jmx-exporter.jar=7071:/opt/prometheus/prometheus_kafka.yml'
+ENV SERVER_JVMFLAGS='-javaagent:/opt/prometheus/jmx-exporter.jar=7071:/opt/prometheus/prometheus_zk.yml'
 
 
 WORKDIR /opt/zookeeper
