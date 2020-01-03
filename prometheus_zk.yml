@@ -1,3 +1,5 @@
+# source: https://raw.githubusercontent.com/prometheus/jmx_exporter/master/example_configs/zookeeper.yaml
+
 rules:
   # replicated Zookeeper
   - pattern: "org.apache.ZooKeeperService<name0=ReplicatedServer_id(\\d+)><>(\\w+)"
