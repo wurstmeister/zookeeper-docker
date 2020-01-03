@@ -56,8 +56,16 @@ RUN curl https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-${FILEBE
   
 ADD filebeat.yml /etc/filebeat
 
+RUN mkdir -p /opt/prometheus/ \
+  && curl https://repo1.maven.org/maven2/io/prometheus/jmx/jmx_prometheus_javaagent/0.12.0/jmx_prometheus_javaagent-0.12.0.jar -o /opt/prometheus/jmx-exporter.jar
+
+ADD prometheus_kafka.yml /opt/prometheus/
+
+ENV SERVER_JVMFLAGS='-javaagent:/opt/prometheus/jmx-exporter.jar=7071:/opt/prometheus/prometheus_kafka.yml'
+
+
 WORKDIR /opt/zookeeper
 VOLUME ["/opt/zookeeper/conf", "/opt/zookeeper/data"]
 
 
-CMD /usr/sbin/sshd && bash /usr/bin/start-zk.sh
+CMD bash /usr/bin/start-zk.sh
