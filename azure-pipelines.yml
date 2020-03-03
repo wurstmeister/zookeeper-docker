@@ -38,7 +38,7 @@ jobs:
 
 - job: 'DockerLinuxDevelop'
   condition: eq(variables['build.SourceBranchName'], 'develop')
-  displayName: 'creates a zookeeper Docker image for Linux for master'
+  displayName: 'creates a zookeeper Docker image for Linux for develop'
   pool:
     vmImage: 'ubuntu-latest'
   steps:
