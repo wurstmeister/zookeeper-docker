@@ -1,6 +1,6 @@
 FROM ubuntu:latest
 
-ARG zookeper_version=3.5.5
+ARG zookeper_version=3.5.7
 ARG consul_version=1.7.1
 ARG hashicorp_releases=https://releases.hashicorp.com
 ARG filebeat_version=7.5.0
@@ -24,10 +24,8 @@ RUN rm -rf /var/lib/apt/lists/*
 
 
 #Download Zookeeper
-RUN wget -q https://www.apache.org/dist/zookeeper/zookeeper-${ZOOKEEPER_VERSION}/apache-zookeeper-${ZOOKEEPER_VERSION}-bin.tar.gz
-
-#Install
-RUN tar -xzf apache-zookeeper-${ZOOKEEPER_VERSION}-bin.tar.gz -C /opt \
+RUN curl https://downloads.apache.org/zookeeper/zookeeper-${ZOOKEEPER_VERSION}/apache-zookeeper-${ZOOKEEPER_VERSION}-bin.tar.gz -o /tmp/zookeeper.tar.gz \
+  && tar -xzf /tmp/zookeeper.tar.gz -C /opt \
   && mv /opt/apache-zookeeper-${ZOOKEEPER_VERSION}-bin /opt/zookeeper
 
 #Configure
