@@ -21,7 +21,7 @@ jobs:
   condition: eq(variables['build.SourceBranchName'], 'master')
   displayName: 'creates a zookeeper Docker image for Linux for master'
   pool:
-    name: 'Hosted Ubuntu 1604'
+    vmImage: 'ubuntu-latest'
   steps:
   - task: Docker@2
     displayName: 'Build and Push the image'
@@ -38,9 +38,9 @@ jobs:
 
 - job: 'DockerLinuxDevelop'
   condition: eq(variables['build.SourceBranchName'], 'develop')
-  displayName: 'creates a zookeeper Docker image for Linux for master'
+  displayName: 'creates a zookeeper Docker image for Linux for develop'
   pool:
-    name: 'Hosted Ubuntu 1604'
+    vmImage: 'ubuntu-latest'
   steps:
   - task: Docker@2
     displayName: 'Build and Push the image'
