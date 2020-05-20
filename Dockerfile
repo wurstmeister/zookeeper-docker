@@ -1,6 +1,6 @@
 FROM ubuntu:latest
 
-ARG zookeper_version=3.5.7
+ARG zookeper_version=3.5.8
 ARG consul_version=1.7.1
 ARG hashicorp_releases=https://releases.hashicorp.com
 ARG filebeat_version=7.5.0
