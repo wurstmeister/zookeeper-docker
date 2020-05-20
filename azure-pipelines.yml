@@ -29,7 +29,7 @@ stages:
     - job: 'CreateDocker_Linux'
       displayName: 'creates a Docker image linux'
       pool:
-        name: 'e1buildpool'
+        vmImage: 'ubuntu-latest'
       steps:
       - task: Docker@2
         displayName: 'Login to ACR'
