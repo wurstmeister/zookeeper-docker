@@ -1,0 +1,31 @@
+sudo: required
+
+services:
+  - docker
+
+# This version will be also tagged as 'latest'
+env:
+  global:
+    - ARCHITECTURES="linux/amd64,linux/arm64,linux/arm/v7,linux/arm/v6"
+
+before_install:
+  - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+  - sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+  - sudo apt-get update
+  - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
+  - echo '{"experimental":"enabled"}' | sudo tee /etc/docker/daemon.json
+  - mkdir -p $HOME/.docker
+  - echo '{"experimental":"enabled"}' | sudo tee $HOME/.docker/config.json
+  - sudo service docker start
+
+install:
+  - docker --version
+  - docker-compose --version
+  - docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+  - docker buildx create --name builder --use
+  - docker buildx inspect
+
+script:
+  - docker buildx build --progress plain --platform=$ARCHITECTURES -t wurstmeister/zookeeper .
+  - docker buildx build --progress plain --platform=linux/amd64 -t wurstmeister/zookeeper --load .
+
