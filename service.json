@@ -1,0 +1,36 @@
+{
+    "name" : "zookeeper",
+    "jsonversion" : "1",
+    "description" : "zookeeper",
+    "homepage" : "https://github.com/germanedge/zookeeper-docker",
+    "keywords" : ["zookeeper", "kafka"],
+    "author" : "Christoph Heuwieser <Christoph.Heuwieser@crossvault.de>",
+    "contributors" : ["Niels Oldenburg <niels.oldenburg@germanedge.com>"],
+    "repository" : {
+    "type": "docker",
+    "url": "germanedge-docker.artifactory.new-solutions.com/edge-one/"
+    },
+    "entrypoint" : "",
+    "dockerfile" : "Dockerfile",
+    "version" : "",
+    "profiles" : {
+      "production" : {
+        "configuration" : {
+          "ports" : "2181:2181",
+          "volumes" : "zookeeper_volume:/opt/zookeper/data",
+          "environments" : []
+        },
+        "dependencies" : {
+        }
+      },
+      "development" : {
+        "configuration" : {
+          "ports" : "2181:2181",
+          "volumes" : "zookeeper_volume:/opt/zookeper/data",
+          "environments" : []
+        },
+        "dependencies" :{
+        }
+      }
+    }
+}
