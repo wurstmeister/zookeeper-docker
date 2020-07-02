@@ -5,10 +5,14 @@ MAINTAINER Wurstmeister
 ENV ZOOKEEPER_VERSION 3.4.14
 
 #Download Zookeeper
-RUN wget https://downloads.apache.org/zookeeper/zookeeper-${ZOOKEEPER_VERSION}/zookeeper-${ZOOKEEPER_VERSION}.tar.gz
-RUN wget https://www.apache.org/dist/zookeeper/KEYS
-RUN wget https://www.apache.org/dist/zookeeper/zookeeper-${ZOOKEEPER_VERSION}/zookeeper-${ZOOKEEPER_VERSION}.tar.gz.asc
-RUN wget https://www.apache.org/dist/zookeeper/zookeeper-${ZOOKEEPER_VERSION}/zookeeper-${ZOOKEEPER_VERSION}.tar.gz.sha512
+RUN curl --show-error --location --remote-name \
+    https://downloads.apache.org/zookeeper/zookeeper-${ZOOKEEPER_VERSION}/zookeeper-${ZOOKEEPER_VERSION}.tar.gz
+RUN curl --show-error --location --remote-name \
+    https://www.apache.org/dist/zookeeper/KEYS
+RUN curl --show-error --location --remote-name \
+    https://www.apache.org/dist/zookeeper/zookeeper-${ZOOKEEPER_VERSION}/zookeeper-${ZOOKEEPER_VERSION}.tar.gz.asc
+RUN curl --show-error --location --remote-name \
+    https://www.apache.org/dist/zookeeper/zookeeper-${ZOOKEEPER_VERSION}/zookeeper-${ZOOKEEPER_VERSION}.tar.gz.sha512
 
 #Verify download
 RUN sha512sum -c zookeeper-${ZOOKEEPER_VERSION}.tar.gz.sha512 && \
