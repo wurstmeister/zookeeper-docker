@@ -11,7 +11,7 @@ RUN wget https://www.apache.org/dist/zookeeper/zookeeper-${ZOOKEEPER_VERSION}/zo
 RUN wget https://www.apache.org/dist/zookeeper/zookeeper-${ZOOKEEPER_VERSION}/zookeeper-${ZOOKEEPER_VERSION}.tar.gz.sha512
 
 #Verify download
-RUN sha512-c zookeeper-${ZOOKEEPER_VERSION}.tar.gz.md5 && \
+RUN sha512sum -c zookeeper-${ZOOKEEPER_VERSION}.tar.gz.md5 && \
 gpg --import KEYS && \
 gpg --verify zookeeper-${ZOOKEEPER_VERSION}.tar.gz.asc
 
