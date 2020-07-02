@@ -5,7 +5,7 @@ MAINTAINER Wurstmeister
 ENV ZOOKEEPER_VERSION 3.4.14
 
 #Download Zookeeper
-RUN wget https://downloads.apache.org/zookeeper/zookeeper--${ZOOKEEPER_VERSION}/zookeeper-${ZOOKEEPER_VERSION}.tar.gz
+RUN wget https://downloads.apache.org/zookeeper/zookeeper-${ZOOKEEPER_VERSION}/zookeeper-${ZOOKEEPER_VERSION}.tar.gz
 RUN wget https://www.apache.org/dist/zookeeper/KEYS
 RUN wget https://www.apache.org/dist/zookeeper/zookeeper-${ZOOKEEPER_VERSION}/zookeeper-${ZOOKEEPER_VERSION}.tar.gz.asc
 RUN wget https://www.apache.org/dist/zookeeper/zookeeper-${ZOOKEEPER_VERSION}/zookeeper-${ZOOKEEPER_VERSION}.tar.gz.sha512
