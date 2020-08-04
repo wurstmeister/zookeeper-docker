@@ -16,8 +16,8 @@
     "profiles" : {
       "production" : {
         "configuration" : {
-          "ports" : "2181:2181",
-          "volumes" : "zookeeper_volume:/opt/zookeper/data",
+          "ports" : ["2181:2181"],
+          "volumes" : [{"name":"zookeeper_volume","value":"/opt/zookeper/data"}],
           "environments" : [],
           "command" : [],
           "depends_on": ["consul"],
@@ -43,8 +43,8 @@
       },
       "development" : {
         "configuration" : {
-          "ports" : "2181:2181",
-          "volumes" : "zookeeper_volume:/opt/zookeper/data",
+          "ports" : ["2181:2181"],
+          "volumes" : [{"name":"zookeeper_volume","value":"/opt/zookeper/data"}],
           "environments" : [],
           "command" : [],
           "depends_on": ["consul"],
