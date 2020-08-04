@@ -18,7 +18,25 @@
         "configuration" : {
           "ports" : "2181:2181",
           "volumes" : "zookeeper_volume:/opt/zookeper/data",
-          "environments" : []
+          "environments" : [],
+          "command" : [],
+          "depends_on": ["consul"],
+          "deploy" : {
+            "mode" : {"name":"mode","value":"replicated"},
+            "replicas": {"value":1},
+            "resources": {
+                "limits" : {"name":"memory","value":"1024M"}
+            },
+            "labels": [],
+            "placement": {
+                "constraints" : ["node.platform.os == linux"]
+            },
+            "restart_policy": {
+                "condition" : "on-failure",
+                "delay" : "30s"
+            },
+          "networks": ["wasp-net"]
+          }
         },
         "dependencies" : {
         }
@@ -27,7 +45,25 @@
         "configuration" : {
           "ports" : "2181:2181",
           "volumes" : "zookeeper_volume:/opt/zookeper/data",
-          "environments" : []
+          "environments" : [],
+          "command" : [],
+          "depends_on": ["consul"],
+          "deploy" : {
+            "mode" : {"name":"mode","value":"replicated"},
+            "replicas": {"value":1},
+            "resources": {
+                "limits" : {"name":"memory","value":"1024M"}
+            },
+            "labels": [],
+            "placement": {
+                "constraints" : ["node.platform.os == linux"]
+            },
+            "restart_policy": {
+                "condition" : "on-failure",
+                "delay" : "30s"
+            },
+          "networks": ["wasp-net"]
+          }
         },
         "dependencies" :{
         }
