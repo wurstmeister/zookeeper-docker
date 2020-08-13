@@ -1,72 +1,74 @@
 {
-    "name" : "zookeeper",
-    "jsonversion" : "1",
-    "description" : "zookeeper",
-    "homepage" : "https://github.com/germanedge/zookeeper-docker",
-    "keywords" : ["zookeeper", "kafka"],
-    "author" : "Christoph Heuwieser <Christoph.Heuwieser@crossvault.de>",
-    "contributors" : ["Niels Oldenburg <niels.oldenburg@germanedge.com>"],
-    "repository" : {
-    "type": "docker",
-    "url": "germanedge-docker.artifactory.new-solutions.com/edge-one/"
-    },
-    "entrypoint" : "",
-    "dockerfile" : "Dockerfile",
-    "version" : "",
-    "profiles" : {
-      "production" : {
-        "configuration" : {
-          "ports" : ["2181:2181"],
-          "volumes" : [{"name":"zookeeper_volume","value":"/opt/zookeper/data"}],
-          "environments" : [],
-          "command" : [],
-          "depends_on": ["consul"],
-          "deploy" : {
-            "mode" : {"name":"mode","value":"replicated"},
-            "replicas": {"value":1},
-            "resources": {
-                "limits" : {"name":"memory","value":"1024M"}
-            },
-            "labels": [],
-            "placement": {
-                "constraints" : ["node.platform.os == linux"]
-            },
-            "restart_policy": {
-                "condition" : "on-failure",
-                "delay" : "30s"
-            },
-          "networks": ["wasp-net"]
-          }
-        },
-        "dependencies" : {
+  "name" : "zookeeper",
+  "jsonversion" : "2",
+  "description" : "zookeeper",
+  "homepage" : "https://github.com/germanedge/zookeeper-docker",
+  "keywords" : ["zookeeper", "kafka"],
+  "author" : "Christoph Heuwieser <Christoph.Heuwieser@crossvault.de>",
+  "contributors" : ["Niels Oldenburg <niels.oldenburg@germanedge.com>"],
+  "repository" : {
+  "type": "docker",
+  "url": "germanedge-docker.artifactory.new-solutions.com/edge-one/"
+  },
+  "entrypoint" : "",
+  "dockerfile" : "Dockerfile",
+  "version" : "",
+  "profiles" : {
+    "production" : {
+      "configuration" : {
+        "ports" : [{"in":2181,"out":2181}],
+        "volumes" : [{"name":"zookeeper_volume","value":"/opt/zookeper/data"}],
+        "environments" : [],
+        "command" : [],
+        "depends_on": ["consul"],
+        "deploy" : {
+          "mode" : {"value":"replicated"},
+          "replicas": {"value":1},
+          "resources": {
+              "limits" : {"name":"memory","value":"1024M"}
+          },
+          "labels": [],
+          "placement": {
+              "constraints" : ["node.platform.os == linux"]
+          },
+          "restart_policy": {
+              "condition" : "on-failure",
+              "delay" : "30s"
+          },
+        "networks": ["wasp-net"]
         }
       },
-      "development" : {
-        "configuration" : {
-          "ports" : ["2181:2181"],
-          "volumes" : [{"name":"zookeeper_volume","value":"/opt/zookeper/data"}],
-          "environments" : [],
-          "command" : [],
-          "depends_on": ["consul"],
-          "deploy" : {
-            "mode" : {"name":"mode","value":"replicated"},
-            "replicas": {"value":1},
-            "resources": {
-                "limits" : {"name":"memory","value":"1024M"}
-            },
-            "labels": [],
-            "placement": {
-                "constraints" : ["node.platform.os == linux"]
-            },
-            "restart_policy": {
-                "condition" : "on-failure",
-                "delay" : "30s"
-            },
-          "networks": ["wasp-net"]
-          }
-        },
-        "dependencies" :{
+      "dependencies" : {
+        "consul": ">=1.0.1 <2.0.0"
+      }
+    },
+    "development" : {
+      "configuration" : {
+        "ports" : ["2181:2181"],
+        "volumes" : [{"name":"zookeeper_volume","value":"/opt/zookeper/data"}],
+        "environments" : [],
+        "command" : [],
+        "depends_on": ["consul"],
+        "deploy" : {
+          "mode" : {"value":"replicated"},
+          "replicas": {"value":1},
+          "resources": {
+              "limits" : {"name":"memory","value":"1024M"}
+          },
+          "labels": [],
+          "placement": {
+              "constraints" : ["node.platform.os == linux"]
+          },
+          "restart_policy": {
+              "condition" : "on-failure",
+              "delay" : "30s"
+          },
+        "networks": ["wasp-net"]
         }
+      },
+      "dependencies" :{
+        "consul": "develop"
       }
     }
+  }
 }
