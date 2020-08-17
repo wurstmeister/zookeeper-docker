@@ -44,7 +44,7 @@
     },
     "development" : {
       "configuration" : {
-        "ports" : ["2181:2181"],
+        "ports" : [{"in":2181,"out":2181}],
         "volumes" : [{"name":"zookeeper_volume","value":"/opt/zookeper/data"}],
         "environments" : [],
         "command" : [],
