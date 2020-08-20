@@ -23,8 +23,7 @@
          "configuration":{
             "ports":[
                {
-                  "in":2181,
-                  "out":2181
+                  "containerport":2181
                }
             ],
             "volumes":[
@@ -51,8 +50,7 @@
                },
                "resources":{
                   "limits":{
-                     "memory":"1024M",
-                     "test":"value"
+                     "memory":"1024M"
                   }
                },
                "labels":[
@@ -77,8 +75,7 @@
          "configuration":{
             "ports":[
                {
-                  "in":2181,
-                  "out":2181
+                  "containerport":2181
                }
             ],
             "volumes":[
