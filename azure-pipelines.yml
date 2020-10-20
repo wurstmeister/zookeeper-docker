@@ -1,8 +1,6 @@
-# EdgeOne kafka Docker build pipeline 
-# Example: germanedge-docker/kafka:latest
+# EdgeOne zookeeper Docker build pipeline 
+# Example: germanedge-docker/zookeeper:latest
 # dockerRegistry: "artifactory.new-solutions.com" -> image container registry service
-
-name: "e1-zookeeper_$(Date:yyyyMMdd)$(Rev:.r)"
 
 variables:
   dockerId: "edge-one"  # Docker-ID for container registry service
@@ -10,75 +8,14 @@ variables:
   imageName: "zookeeper"
   artifactoryURL: "germanedge-docker.artifactory.new-solutions.com"
 
-trigger:
-- master
-- develop
-- refs/tags/*
-
-pr: none
+name: "$(imageName) $(GitVersion.FullSemVer)"
 
 resources:
-  containers: 
-  - container: ubuntuintegrationtest
-    endpoint: germanedge-docker.artifactory
-    image: 'germanedge-docker.artifactory.new-solutions.com/$(dockerId)/ubuntu-integrationtest:master'
+  repositories:
+    - repository: templates
+      type: github
+      name: Germanedge/azure-pipelines-templates
+      endpoint: Germanedge
 
-stages: 
-  - stage: Build
-    jobs:
-    - job: 'CreateDocker_Linux'
-      displayName: 'creates a Docker image linux'
-      pool:
-        vmImage: 'ubuntu-latest'
-      steps:
-      - task: Docker@2
-        displayName: 'Login to ACR'
-        inputs:
-          containerRegistry: '$(artifactRegistry)'
-          command: 'login'
-      - task: Docker@2
-        displayName: 'Build the image'
-        inputs:
-          repository: '$(dockerId)/$(imageName)'
-          command: 'build'
-          Dockerfile: 'Dockerfile'
-          arguments: -m 2g
-          buildContext: '.'
-          tags: |
-            $(Build.BuildId)
-            latest
-      - task: Docker@2
-        displayName: 'Push the image'
-        inputs:
-          containerRegistry: '$(artifactRegistry)'
-          repository: '$(dockerId)/$(imageName)'
-          command: 'Push'
-          tags: |
-            $(Build.BuildId)
-            latest
-  - stage: PublishImage
-    jobs:
-    - job: 'Publish_Image'
-      displayName: 'publish image on if pervious stages are successful'
-      pool: 
-        vmImage: 'ubuntu-latest'
-      container: ubuntuintegrationtest
-      steps:
-      - task: Docker@2
-        displayName: 'Login to ACR'
-        inputs:
-          containerRegistry: '$(artifactRegistry)'
-          command: 'login'
-      - script: |
-          echo "pulling $ARTIFACTORYURL/$DOCKERID/$IMAGENAME:$BUILDID"
-          docker pull $ARTIFACTORYURL/$DOCKERID/$IMAGENAME:$BUILDID
-          echo "tagging $BUILDID as $SOURCEBRANCHNAME"
-          docker tag $ARTIFACTORYURL/$DOCKERID/$IMAGENAME:$BUILDID $ARTIFACTORYURL/$DOCKERID/$IMAGENAME:$SOURCEBRANCHNAME
-          docker push $ARTIFACTORYURL/$DOCKERID/$IMAGENAME:$SOURCEBRANCHNAME
-        displayName: Push image to artifactory
-        env:
-          SOURCEBRANCHNAME: $(build.SourceBranchName)
-          BUILDID: $(Build.BuildId)
-          ARTIFACTORYURL: $(artifactoryURL)
-          DOCKERID: $(dockerId)
-          IMAGENAME: $(imageName)
+extends:
+  template: azure-pipelines-docker-template.yml@templates
