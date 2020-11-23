@@ -92,8 +92,7 @@
           },
           "resources": {
             "limits": {
-              "memory": "1024M",
-              "test": "value"
+              "memory": "1024M"
             }
           },
           "labels": [],
