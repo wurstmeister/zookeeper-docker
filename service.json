@@ -1,6 +1,6 @@
 {
   "name": "zookeeper",
-  "jsonversion": "2",
+  "jsonversion": "3",
   "description": "zookeeper",
   "homepage": "https://github.com/germanedge/zookeeper-dockery/zookeeper-docker",
   "keywords": [
@@ -23,13 +23,14 @@
       "configuration": {
         "ports": [
           {
-            "containerport": 2181
+            "containerPort": 2181
           }
         ],
         "volumes": [
           {
             "name": "zookeeper_volume",
-            "value": "/opt/zookeper/data"
+            "value": "/opt/zookeper/data",
+            "size": "4Gi"
           }
         ],
         "environments": [],
@@ -69,13 +70,14 @@
       "configuration": {
         "ports": [
           {
-            "containerport": 2181
+            "containerPort": 2181
           }
         ],
         "volumes": [
           {
             "name": "zookeeper_volume",
-            "value": "/opt/zookeper/data"
+            "value": "/opt/zookeper/data",
+            "size":"4Gi"
           }
         ],
         "environments": [],
