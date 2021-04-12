@@ -17,7 +17,7 @@
   },
   "entrypoint": "entrypoint.sh",
   "dockerfile": "Dockerfile",
-  "version": "3.53.0",
+  "version": "3.54.0",
   "profiles": {
     "production": {
       "configuration": {
@@ -77,7 +77,7 @@
           {
             "name": "zookeeper_volume",
             "value": "/opt/zookeper/data",
-            "size":"4Gi"
+            "size": "4Gi"
           }
         ],
         "environments": [],
