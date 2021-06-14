@@ -1,13 +1,14 @@
-FROM germanedge-docker.artifactory.new-solutions.com/edge-one/ge-ubuntu-generic:0.16.0
+FROM germanedge-docker.artifactory.new-solutions.com/edge-one/ge-ubuntu-generic:0.17.0
 
 ARG zookeper_version=3.7.0
 
 ENV ZOOKEEPER_VERSION=$zookeper_version
+ENV PORT=2181
 ENV SERVICENAME=zookeeper
 ENV CONSUL_TAGS='"web","application","prometheus"'
 ENV CONSUL_META_SCRAPE_PATH="\/metrics"
 ENV CONSUL_META_SCRAPE_PORT="7071"
-ENV LOGSTASH_VERSION=$logstash_version
+ENV FILEBEAT_ARGS='--E filebeat.inputs.2.paths=["/opt/zookeeper/logs/*.log"]'
 
 USER root
 
@@ -51,4 +52,8 @@ VOLUME ["/opt/zookeeper/conf", "/opt/zookeeper/data"]
 USER 1000
 
 COPY --chown=edgeone:root startup.sh /app/startup.sh
+COPY --chown=edgeone:root service.json /app/service.json
+
 RUN chmod +x /app/startup.sh
+
+USER root 
