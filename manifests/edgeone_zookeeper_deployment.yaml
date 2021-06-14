@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zookeeper
+  namespace: edgeone
+spec:
+  selector:
+    matchLabels:
+      app: zookeeper
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: zookeeper
+    spec:
+      securityContext:
+        fsGroup: 1000
+      volumes:
+      - name: edgeone-zookeeper-pv
+        persistentVolumeClaim:
+          claimName: edgeone-zookeeper-pv-claim
+      containers:
+      - image: germanedge-docker.artifactory.new-solutions.com/edge-one/zookeeper:develop
+        imagePullPolicy: Always
+        name: zookeeper
+        volumeMounts:
+        - mountPath: /opt/zookeper/data
+          name: edgeone-zookeeper-pv
+          subPath: optzookeperdata
+        env: []
+        ports:
+        - containerPort: 2181
+        resources:
+          limits:
+            memory: "512M"
+        args: []
+        command: []
+      imagePullSecrets:
+      - name: artifactory
+      nodeSelector:
+        kubernetes.io/os: linux
