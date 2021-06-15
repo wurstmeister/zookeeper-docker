@@ -1,17 +1,16 @@
-FROM ubuntu:latest
+FROM germanedge-docker.artifactory.new-solutions.com/edge-one/ge-ubuntu-generic:0.17.0
 
 ARG zookeper_version=3.7.0
-ARG consul_version=1.7.1
-ARG hashicorp_releases=https://releases.hashicorp.com
-ARG filebeat_version=7.5.0
-ARG consul_url=consul
 
-ENV ZOOKEEPER_VERSION=$zookeper_version \
-    CONSUL_VERSION=$consul_version \
-    HASHICORP_RELEASES=$hashicorp_releases \
-    FILEBEAT_VERSION=$filebeat_version \
-    CONSUL_URL=$consul_url
+ENV ZOOKEEPER_VERSION=$zookeper_version
+ENV PORT=2181
+ENV SERVICENAME=zookeeper
+ENV CONSUL_TAGS='"web","application","prometheus"'
+ENV CONSUL_META_SCRAPE_PATH="\/metrics"
+ENV CONSUL_META_SCRAPE_PORT="7071"
+ENV FILEBEAT_ARGS='--E filebeat.inputs.2.paths=["/opt/zookeeper/logs/*.log"]'
 
+USER root
 
 #RUN mkdir /var/run/sshd
 #RUN echo 'root:germanedge' | chpasswd
@@ -35,30 +34,14 @@ ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
 ENV ZK_HOME /opt/zookeeper
 RUN sed  -i "s|/tmp/zookeeper|$ZK_HOME/data|g" $ZK_HOME/conf/zoo.cfg; mkdir $ZK_HOME/data
 
-ADD start-zk.sh /usr/bin/start-zk.sh
+COPY --chown=edgeone:root start-zk.sh /usr/bin/start-zk.sh
 #EXPOSE 2181 2888 3888
 
-RUN curl -L -o /tmp/consul.zip ${HASHICORP_RELEASES}/consul/${CONSUL_VERSION}/consul_${CONSUL_VERSION}_linux_amd64.zip \
- && unzip -d /usr/bin /tmp/consul.zip && chmod +x /usr/bin/consul && rm /tmp/consul.zip \
- && mkdir -p /etc/consul.d/ \
- && mkdir -p /opt/consul-data/
- 
-ADD consul-zk.json /etc/consul.d/
-
-RUN curl https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-${FILEBEAT_VERSION}-linux-x86_64.tar.gz -o /tmp/filebeat.tar.gz \
-  && tar xzf /tmp/filebeat.tar.gz \
-  && rm /tmp/filebeat.tar.gz \
-  && mv filebeat-${FILEBEAT_VERSION}-linux-x86_64 /usr/share/filebeat \
-  && cp /usr/share/filebeat/filebeat /usr/bin \
-  && mkdir -p /etc/filebeat \
-  && cp -a /usr/share/filebeat/module /etc/filebeat/
-  
-ADD filebeat.yml /etc/filebeat
 
 RUN mkdir -p /opt/prometheus/ \
   && curl https://repo1.maven.org/maven2/io/prometheus/jmx/jmx_prometheus_javaagent/0.12.0/jmx_prometheus_javaagent-0.12.0.jar -o /opt/prometheus/jmx-exporter.jar
 
-ADD prometheus_zk.yml /opt/prometheus/
+COPY --chown=edgeone:root prometheus_zk.yml /opt/prometheus/
 
 ENV SERVER_JVMFLAGS='-javaagent:/opt/prometheus/jmx-exporter.jar=7071:/opt/prometheus/prometheus_zk.yml'
 
@@ -66,5 +49,11 @@ ENV SERVER_JVMFLAGS='-javaagent:/opt/prometheus/jmx-exporter.jar=7071:/opt/prome
 WORKDIR /opt/zookeeper
 VOLUME ["/opt/zookeeper/conf", "/opt/zookeeper/data"]
 
+USER 1000
 
-CMD bash /usr/bin/start-zk.sh
+COPY --chown=edgeone:root startup.sh /app/startup.sh
+COPY --chown=edgeone:root service.json /app/service.json
+
+RUN chmod +x /app/startup.sh
+
+USER root 
