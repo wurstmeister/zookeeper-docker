@@ -25,9 +25,9 @@ spec:
         imagePullPolicy: Always
         name: zookeeper
         volumeMounts:
-        - mountPath: /opt/zookeper/data
+        - mountPath: /opt/zookeeper/data
           name: edgeone-zookeeper-pv
-          subPath: optzookeperdata
+          subPath: optzookeeperdata
         env: []
         ports:
         - containerPort: 2181
