@@ -3,10 +3,10 @@
 # dockerRegistry: "artifactory.new-solutions.com" -> image container registry service
 
 variables:
-  dockerId: "edge-one"  # Docker-ID for container registry service
-  artifactRegistry: "germanedge-docker.artifactory"
-  imageName: "zookeeper"
-  artifactoryURL: "germanedge-docker.artifactory.new-solutions.com"
+  - group: Github-credentials
+  - group: artifactory-docker
+  - name: imageName
+    value: "zookeeper"
 
 name: "$(imageName) $(GitVersion.FullSemVer)"
 
@@ -19,3 +19,6 @@ resources:
 
 extends:
   template: azure-pipelines-docker-template.yml@templates
+  parameters:
+    gitPassword: $(gitPassword)
+    gitUser:  $(gitUser)  
