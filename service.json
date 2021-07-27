@@ -17,7 +17,7 @@
   },
   "entrypoint": "entrypoint.sh",
   "dockerfile": "Dockerfile",
-  "version": "3.59.0",
+  "version": "3.60.0",
   "profiles": {
     "production": {
       "configuration": {
