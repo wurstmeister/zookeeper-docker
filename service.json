@@ -76,7 +76,7 @@
         "volumes": [
           {
             "name": "zookeeper_volume",
-            "value": "/opt/zookeper/data",
+            "value": "/opt/zookeeper/data",
             "size": "4Gi"
           }
         ],
