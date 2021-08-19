@@ -2,7 +2,7 @@
   "name": "zookeeper",
   "jsonversion": "3",
   "description": "zookeeper",
-  "homepage": "https://github.com/germanedge/zookeeper-dockery/zookeeper-docker",
+  "homepage": "https://github.com/germanedge/zookeeper-docker/zookeeper-docker",
   "keywords": [
     "zookeeper",
     "kafka"
