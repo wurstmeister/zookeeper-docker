@@ -1,0 +1,26 @@
+name: "zookeeper_deploy_$(Date:yyyyMMdd)$(Rev:.r)"
+
+trigger: none
+pr: none
+
+resources:
+  repositories:
+    - repository: templates
+      type: github
+      name: Germanedge/azure-pipelines-templates
+      endpoint: Germanedge
+  pipelines:
+    - pipeline: zookeeper
+      source: Germanedge.zookeeper
+      trigger:
+        branches:
+          include:
+            - develop
+        stages:
+          - Publish
+
+extends:
+  template: kubernetes-deployment-template.yaml@templates
+  parameters:
+    environment: edgeone-kubernetes.default
+    namespace: e1-dev
