@@ -29,7 +29,7 @@ spec:
         command: []
         ports:
         - containerPort: 2181
-        image: germanedge-docker.artifactory.new-solutions.com/edge-one/zookeeper:3.68.0
+        image: germanedge-docker.artifactory.new-solutions.com/edge-one/zookeeper:3.69.0
         resources:
           limits:
             memory: "512M"
