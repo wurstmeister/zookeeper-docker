@@ -1,6 +1,7 @@
 {
   "name": "zookeeper",
   "jsonversion": "3",
+  "servicetype": "core",
   "description": "zookeeper",
   "homepage": "https://github.com/germanedge/zookeeper-docker",
   "keywords": [
