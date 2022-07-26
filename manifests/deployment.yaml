@@ -29,7 +29,12 @@ spec:
         command: []
         ports:
         - containerPort: 2181
-        image: germanedge-docker.artifactory.new-solutions.com/edge-one/zookeeper:3.70.0
+          name: port0
+          protocol: TCP
+        - containerPort: 2181
+          name: port1
+          protocol: UDP
+        image: germanedge-docker.artifactory.new-solutions.com/edge-one/zookeeper:3.71.0
         resources:
           limits:
             memory: "512M"
