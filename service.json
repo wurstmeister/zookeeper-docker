@@ -34,7 +34,15 @@
             "size": "4Gi"
           }
         ],
-        "environments": [],
+        "environments": [
+          {
+            "name": "EXT_CA_CERT",
+            "type": "secretRef",
+            "secretName": "external-ca-cert-secret",
+            "secretKey": "ext_ca_cert",
+            "optional": true
+          }          
+        ],
         "command": [],
         "depends_on": [
           "consul"
