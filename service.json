@@ -18,7 +18,7 @@
   },
   "entrypoint": "entrypoint.sh",
   "dockerfile": "Dockerfile",
-  "version": "3.71.0",
+  "version": "3.72.0",
   "profiles": {
     "production": {
       "configuration": {
@@ -41,7 +41,7 @@
             "secretName": "external-ca-cert-secret",
             "secretKey": "ext_ca_cert",
             "optional": true
-          }          
+          }
         ],
         "command": [],
         "depends_on": [
