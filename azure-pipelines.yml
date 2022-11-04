@@ -16,7 +16,7 @@ resources:
       type: github
       name: Germanedge/azure-pipelines-templates
       endpoint: Germanedge
-      ref: refs/heads/bugfix/GE4-4127      
+      ref: refs/heads/fix-zookeeper-version-update
 
 extends:
   template: azure-pipelines-docker-template.yml@templates
