@@ -41,7 +41,7 @@ spec:
         - containerPort: 2181
           name: port1
           protocol: UDP
-        image: germanedge-docker.artifactory.new-solutions.com/edge-one/zookeeper:3.77.0
+        image: germanedge-docker.artifactory.new-solutions.com/edge-one/zookeeper:3.78.0
         resources:
           limits:
             memory: "512M"
