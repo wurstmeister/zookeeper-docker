@@ -41,7 +41,12 @@
             "secretName": "external-ca-cert-secret",
             "secretKey": "ext_ca_cert",
             "optional": true
-          }
+          },
+          {
+            "name": "K8S_NAMESPACE",
+            "type": "fieldRef",
+            "fieldPath":"metadata.namespace"
+          }          
         ],
         "command": [],
         "depends_on": [
