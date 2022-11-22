@@ -25,7 +25,8 @@ RUN rm -rf /var/lib/apt/lists/*
 #Download Zookeeper
 RUN curl https://downloads.apache.org/zookeeper/zookeeper-${ZOOKEEPER_VERSION}/apache-zookeeper-${ZOOKEEPER_VERSION}-bin.tar.gz -o /tmp/zookeeper.tar.gz \
   && tar -xzf /tmp/zookeeper.tar.gz -C /opt \
-  && mv /opt/apache-zookeeper-${ZOOKEEPER_VERSION}-bin /opt/zookeeper
+  && mv /opt/apache-zookeeper-${ZOOKEEPER_VERSION}-bin /opt/zookeeper \
+  && rm -rf /tmp/zookeeper.tar.gz
 
 #Configure
 RUN mv /opt/zookeeper/conf/zoo_sample.cfg /opt/zookeeper/conf/zoo.cfg
