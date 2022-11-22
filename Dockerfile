@@ -39,7 +39,7 @@ COPY --chown=edgeone:root start-zk.sh /usr/bin/start-zk.sh
 
 
 RUN mkdir -p /opt/prometheus/ \
-  && curl https://repo1.maven.org/maven2/io/prometheus/jmx/jmx_prometheus_javaagent/0.12.0/jmx_prometheus_javaagent-0.12.0.jar -o /opt/prometheus/jmx-exporter.jar
+  && curl https://repo1.maven.org/maven2/io/prometheus/jmx/jmx_prometheus_javaagent/0.17.2/jmx_prometheus_javaagent-0.17.2.jar -o /opt/prometheus/jmx-exporter.jar
 
 COPY --chown=edgeone:root prometheus_zk.yml /opt/prometheus/
 
