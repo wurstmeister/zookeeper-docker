@@ -25,7 +25,8 @@ RUN rm -rf /var/lib/apt/lists/*
 #Download Zookeeper
 RUN curl https://downloads.apache.org/zookeeper/zookeeper-${ZOOKEEPER_VERSION}/apache-zookeeper-${ZOOKEEPER_VERSION}-bin.tar.gz -o /tmp/zookeeper.tar.gz \
   && tar -xzf /tmp/zookeeper.tar.gz -C /opt \
-  && mv /opt/apache-zookeeper-${ZOOKEEPER_VERSION}-bin /opt/zookeeper
+  && mv /opt/apache-zookeeper-${ZOOKEEPER_VERSION}-bin /opt/zookeeper \
+  && rm -rf /tmp/zookeeper.tar.gz
 
 #Configure
 RUN mv /opt/zookeeper/conf/zoo_sample.cfg /opt/zookeeper/conf/zoo.cfg
@@ -39,7 +40,7 @@ COPY --chown=edgeone:root start-zk.sh /usr/bin/start-zk.sh
 
 
 RUN mkdir -p /opt/prometheus/ \
-  && curl https://repo1.maven.org/maven2/io/prometheus/jmx/jmx_prometheus_javaagent/0.12.0/jmx_prometheus_javaagent-0.12.0.jar -o /opt/prometheus/jmx-exporter.jar
+  && curl https://repo1.maven.org/maven2/io/prometheus/jmx/jmx_prometheus_javaagent/0.17.2/jmx_prometheus_javaagent-0.17.2.jar -o /opt/prometheus/jmx-exporter.jar
 
 COPY --chown=edgeone:root prometheus_zk.yml /opt/prometheus/
 
