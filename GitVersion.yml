@@ -1,0 +1,13 @@
+mode: Mainline
+branches:
+  master:
+    is-mainline: false
+    regex: ^master$
+    increment: none
+  develop:
+    is-mainline: true
+    regex: ^dev(elop)?(ment)?$
+    tag: ""
+ignore:
+  sha: []
+merge-message-formats: {} 

@@ -1,0 +1,131 @@
+{
+  "name": "zookeeper",
+  "jsonversion": "3",
+  "servicetype": "core",
+  "description": "zookeeper",
+  "homepage": "https://github.com/germanedge/zookeeper-docker",
+  "keywords": [
+    "zookeeper",
+    "kafka"
+  ],
+  "author": "Christoph Heuwieser <Christoph.Heuwieser@crossvault.de>",
+  "contributors": [
+    "Niels Oldenburg <niels.oldenburg@germanedge.com>"
+  ],
+  "repository": {
+    "type": "docker",
+    "url": "germanedge-docker.artifactory.new-solutions.com/edge-one/"
+  },
+  "entrypoint": "entrypoint.sh",
+  "dockerfile": "Dockerfile",
+  "version": "3.87.0",
+  "profiles": {
+    "production": {
+      "configuration": {
+        "ports": [
+          {
+            "containerPort": 2181
+          }
+        ],
+        "volumes": [
+          {
+            "name": "zookeeper_volume",
+            "value": "/opt/zookeeper/data",
+            "size": "4Gi"
+          }
+        ],
+        "environments": [
+          {
+            "name": "EXT_CA_CERT",
+            "type": "secretRef",
+            "secretName": "external-ca-cert-secret",
+            "secretKey": "ext_ca_cert",
+            "optional": true
+          },
+          {
+            "name": "K8S_NAMESPACE",
+            "type": "fieldRef",
+            "fieldPath": "metadata.namespace"
+          }
+        ],
+        "command": [],
+        "depends_on": [
+          "consul"
+        ],
+        "deploy": {
+          "mode": {
+            "value": "replicated"
+          },
+          "replicas": {
+            "value": 1
+          },
+          "resources": {
+            "limits": {
+              "memory": "512M"
+            }
+          },
+          "labels": [],
+          "placement": {
+            "constraints": [
+              "node.platform.os == linux"
+            ]
+          },
+          "restart_policy": {
+            "condition": "on-failure",
+            "delay": "30s"
+          }
+        }
+      },
+      "dependencies": {
+        "consul": ">=1.7.1 <2.0.0"
+      }
+    },
+    "development": {
+      "configuration": {
+        "ports": [
+          {
+            "containerPort": 2181
+          }
+        ],
+        "volumes": [
+          {
+            "name": "zookeeper_volume",
+            "value": "/opt/zookeeper/data",
+            "size": "4Gi"
+          }
+        ],
+        "environments": [],
+        "command": [],
+        "depends_on": [
+          "consul"
+        ],
+        "deploy": {
+          "mode": {
+            "value": "replicated"
+          },
+          "replicas": {
+            "value": 1
+          },
+          "resources": {
+            "limits": {
+              "memory": "512M"
+            }
+          },
+          "labels": [],
+          "placement": {
+            "constraints": [
+              "node.platform.os == linux"
+            ]
+          },
+          "restart_policy": {
+            "condition": "on-failure",
+            "delay": "30s"
+          }
+        }
+      },
+      "dependencies": {
+        "consul": ">=1.7.1 <2.0.0"
+      }
+    }
+  }
+}

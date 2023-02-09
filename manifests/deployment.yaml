@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zookeeper
+spec:
+  selector:
+    matchLabels:
+      app: zookeeper
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: zookeeper
+    spec:
+      securityContext:
+        fsGroup: 1000
+      volumes:
+      - name: edgeone-zookeeper-pv
+        persistentVolumeClaim:
+          claimName: edgeone-zookeeper-pv-claim
+      imagePullSecrets:
+      - name: artifactory
+      nodeSelector:
+        kubernetes.io/os: linux
+      containers:
+      - imagePullPolicy: Always
+        name: zookeeper
+        env:
+        - name: EXT_CA_CERT
+          valueFrom:
+            secretKeyRef:
+              name: external-ca-cert-secret
+              key: ext_ca_cert
+              optional: true
+        - name: K8S_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        command: []
+        ports:
+        - containerPort: 2181
+          name: port0
+          protocol: TCP
+        - containerPort: 2181
+          name: port1
+          protocol: UDP
+        image: germanedge-docker.artifactory.new-solutions.com/edge-one/zookeeper:3.87.0
+        resources:
+          limits:
+            memory: "512M"
+        volumeMounts:
+        - mountPath: /opt/zookeeper/data
+          name: edgeone-zookeeper-pv
+          subPath: optzookeeperdata
+---

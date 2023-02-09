@@ -1,0 +1,24 @@
+# EdgeOne zookeeper Docker build pipeline 
+# Example: germanedge-docker/zookeeper:latest
+# dockerRegistry: "artifactory.new-solutions.com" -> image container registry service
+
+variables:
+  - group: Github-credentials
+  - group: artifactory-docker
+  - name: imageName
+    value: "zookeeper"
+
+name: "$(imageName) $(GitVersion.FullSemVer)"
+
+resources:
+  repositories:
+    - repository: templates
+      type: github
+      name: Germanedge/azure-pipelines-templates
+      endpoint: Germanedge
+
+extends:
+  template: azure-pipelines-docker-template.yml@templates
+  parameters:
+    gitPassword: $(gitPassword)
+    gitUser:  $(gitUser)  
